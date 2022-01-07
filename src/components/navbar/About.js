@@ -1,7 +1,7 @@
 import React from 'react'
 
 export default function About(props) {
-    var settings = "text-5xl h-20 bg-[#115D7E] text-white align-bottom hover:text-black hover:text-7xl"
+    var settings = "text-3xl h-20 bg-[#115D7E] text-white align-bottom hover:bg-[#147199] rounded-2xl"
 
     return (
         <div className={settings}>
