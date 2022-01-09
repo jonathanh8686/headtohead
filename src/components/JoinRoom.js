@@ -13,7 +13,7 @@ export default function Joinroom(props) {
     });
 
     return (
-        <div className = "flex-col-1 flex-col gap-y-5">
+        <div className = "flex-col-1 flex-col space-y-2">
             <div>
                 <MyTextField id="custom-mine" variant="outlined" label="Name"  InputLabelProps = {{className : "text-white"}}/>
             </div>
