@@ -3,7 +3,7 @@ import Title from './navbar/Title'
 import About from './navbar/About'
 
 export default function Navbar(props) {
-    var settings = "flex gap-4 grid-cols-12 h-20 bg-[#282c34]"
+    var settings = "flex gap-4 grid-cols-12 h-20 bg-[#282c34] text-center align-text-middle"
 
     return (
         <div className = {settings}>
