@@ -6,7 +6,7 @@ export default function Title(props) {
     var lightmode = true
     return (
         <div className={settings}>
-            Head to Head!
+            head to head!
             
             
         </div>
