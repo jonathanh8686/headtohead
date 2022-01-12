@@ -13,6 +13,17 @@ export default function Joinroom(props) {
         },
     });
 
+    var roomValue = "";
+    
+    const changeRV = e => {
+        roomValue = e.target.value;
+        console.log(roomValue);
+    };
+
+    const sendToRoom = () => {
+        console.log(window.location.href + roomValue)
+        window.open(window.location.href + roomValue);
+    };
     
     useEffect(() => {
         console.log(props);
@@ -22,7 +33,6 @@ export default function Joinroom(props) {
     }, []);
     
     
-
     
 
     const test = () => socket.emit('test', {
@@ -37,10 +47,10 @@ export default function Joinroom(props) {
                 <MyTextField id="custom-mine" variant="outlined" label="name"  InputLabelProps = {{className : "text-white"}}/>
             </div>
             <div>
-                <MyTextField id="outlined-basic" label="room id" variant="outlined" InputLabelProps = {{className : "text-white"}}/>
+                <MyTextField id="outlined-basic" label="room id" variant="outlined" onChange={changeRV} InputLabelProps = {{className : "text-white"}}/>
                 </div>
             <div>
-                <Button className="bg-[#115D7E]" variant="contained" onClick={test}>join room</Button>
+                <Button className="bg-[#115D7E]" variant="contained" onClick={sendToRoom}>join room</Button>
             </div>
             
         </div>
