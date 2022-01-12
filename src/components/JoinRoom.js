@@ -22,7 +22,7 @@ export default function Joinroom(props) {
 
     const sendToRoom = () => {
         console.log(window.location.href + roomValue)
-        window.open(window.location.href + roomValue);
+        window.open(window.location.href + roomValue, '_self');
     };
     
     useEffect(() => {
