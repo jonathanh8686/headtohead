@@ -1,13 +1,15 @@
 import logo from './logo.svg';
 import './App.css';
-import Navbar from './components/Navbar'
+import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 import React, { useState, useEffect } from 'react';
-import Joinroom from './components/JoinRoom'
 import io from 'socket.io-client'
+import Homepage from './components/Homepage'
+import Lobby from './components/Lobby'
+import socket from './Socket'
 
 
 function App() {
-  var settings = "flex-col-1 bg-[#343a44]"
+  
   const [socket, setSocket] = useState(null);
 
   /*
@@ -19,12 +21,15 @@ function App() {
   }, [setSocket])
   */
   return (
-    <div className={settings}>
-      <Navbar/>
-      <div className = "min-h-screen  text-center mt-5">
-        <Joinroom/>
-      </div>
-    </div>
+    <Router>
+      <Routes>
+        <Route path='/' element={<Homepage/>}/>
+        <Route path='room/*' element={<Lobby/>}/>
+      </Routes>
+      
+      
+    </Router>
+    
   );
 }
 
