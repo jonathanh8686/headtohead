@@ -2,6 +2,9 @@ import React, {useState, useEffect} from 'react'
 import socket from '../Socket'
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 import Homepage from './Homepage'
+import LobbySettings from './LobbySettings'
+import PlayerList from './PlayerList'
+import Ready from './Ready'
 
 export default function Lobby(props) {
     //list of player names (given an array)
@@ -30,9 +33,18 @@ export default function Lobby(props) {
         
     }, []);
 
-    var settings = "flex-col-1 bg-[#343a44] h-screen"
+    var settings = "flex-col-1 flex-col space-y-2 bg-[#343a44] h-screen"
     return success ? (
         <div className={settings}>
+            <div>
+                <LobbySettings/>
+            </div>
+            <div>
+                <PlayerList/>
+            </div>
+            <div>
+                <Ready/>
+            </div>
             
             <h1> {window.location.pathname} </h1>
         </div>
