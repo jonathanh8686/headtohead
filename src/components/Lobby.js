@@ -6,7 +6,8 @@ import Homepage from './Homepage'
 export default function Lobby(props) {
     //list of player names (given an array)
     //ready button
-    const [resultMsg, setResultMsg] = useState('');
+    const [success, setSuccess] = useState(true);
+    const [errorMessage, setErrorMessage] = useState("");
     useEffect(() => {
         console.log(props);
         socket.on("test", (msg) => {
@@ -20,8 +21,8 @@ export default function Lobby(props) {
         
         socket.on('roomRequestResult', (msg) => {
             if(msg['result'] == 'failure'){
-                setResultMsg(msg['message']);
-                window.open(`${window.location.origin}/failure`, '_self');
+                setSuccess(false);
+                setErrorMessage(msg['message']);
             }
         })
         
@@ -30,14 +31,13 @@ export default function Lobby(props) {
     }, []);
 
     var settings = "flex-col-1 bg-[#343a44] h-screen"
-    return resultMsg == '' ? (
+    return success ? (
         <div className={settings}>
             
             <h1> {window.location.pathname} </h1>
-            <h1> {resultMsg} </h1>
         </div>
         
     ) : (
-        <Homepage/>
+        <Homepage error={true} message={errorMessage}/>
     )
 }

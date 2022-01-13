@@ -7,7 +7,7 @@ import RoomAlert from './RoomAlert'
 
 export default function Homepage(props) {
     
-    var settings = "flex-col-1 bg-[#343a44]"
+    var settings = "flex-col bg-[#343a44]"
     //var {message} = useParams();
     
 
@@ -18,7 +18,7 @@ export default function Homepage(props) {
             <div className="min-h-screen  text-center mt-5">
                 <Joinroom/>
             </div>
-            <div className="min-h-full"><RoomAlert error={props.error}/></div>
+            <div className=""><RoomAlert error={props.error} message={props.message}/></div>
             
             
         </div>
