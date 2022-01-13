@@ -11,6 +11,9 @@ export default function Homepage(props) {
             <div className = "min-h-screen  text-center mt-5">
                 <Joinroom/>
             </div>
+            <div className = "test-red-600">
+                {props.message}
+            </div>
         </div>
     )
 }
