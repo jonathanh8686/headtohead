@@ -5,6 +5,7 @@ import Homepage from './Homepage'
 import LobbySettings from './LobbySettings'
 import PlayerList from './PlayerList'
 import Ready from './Ready'
+import PlayerName from './PlayerName'
 
 export default function Lobby(props) {
     //list of player names (given an array)
@@ -33,18 +34,24 @@ export default function Lobby(props) {
         
     }, []);
 
-    var settings = "flex-col-1 flex-col space-y-2 bg-[#343a44] h-screen"
+    var settings = "flex flex-row space-x-2 bg-[#343a44] w-screen h-screen"
     return success ? (
         <div className={settings}>
-            <div>
+            <div className = "w-1/2">
                 <LobbySettings/>
             </div>
-            <div>
-                <PlayerList/>
+            <div className = "flex flex-col space-y-2 w-1/4 h-screen">
+                <div>
+                    <PlayerName/>
+                </div>
+                <div class = "h-80">
+                    <PlayerList/>
+                </div>
+                <div>  
+                    <Ready/>
+                </div>
             </div>
-            <div>
-                <Ready/>
-            </div>
+            
             
             <h1> {window.location.pathname} </h1>
         </div>
