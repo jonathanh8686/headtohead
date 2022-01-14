@@ -17,23 +17,28 @@ export default function Lobby(props) {
         console.log(props);
         socket.on("test", (msg) => {
             console.log(msg);
-        });
+        }); 
         var pth = window.location.pathname;
         socket.emit('roomRequest', {
             'nickname': 'asdf',
             'roomID': pth.split('/').pop()
-        })
+        });
         
         socket.on('roomRequestResult', (msg) => {
             if(msg['result'] == 'failure'){
                 setSuccess(false);
                 setErrorMessage(msg['message']);
+            } else {
+                socket.emit('getNicknameList', {
+                    'roomID' : pth.split('/').pop()
+                });
+                socket.on('updateNickname', (msg) => {
+                    setNicknameList(msg['nicknames']);
+                })
             }
         })
         
-        socket.on('updateNickname', (msg) => {
-            setNicknameList(msg['nicknames']);
-        })
+        
         
         
     }, []);
