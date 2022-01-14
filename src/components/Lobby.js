@@ -11,6 +11,7 @@ export default function Lobby(props) {
     //ready button
     const [success, setSuccess] = useState(true);
     const [errorMessage, setErrorMessage] = useState("");
+    const [nicknameList, setNicknameList] = useState([]);
     useEffect(() => {
         console.log(props);
         socket.on("test", (msg) => {
@@ -29,9 +30,14 @@ export default function Lobby(props) {
             }
         })
         
+        socket.on('updateNickname', (msg) => {
+            setNicknameList(msg['nicknames']);
+        })
         
         
     }, []);
+
+    
 
     var settings = "flex-col-1 flex-col space-y-2 bg-[#343a44] h-screen"
     return success ? (
