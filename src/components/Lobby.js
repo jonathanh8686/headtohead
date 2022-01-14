@@ -38,28 +38,28 @@ export default function Lobby(props) {
         
     }, []);
 
-    var settings = "flex flex-row space-x-2 bg-[#343a44] w-screen h-screen"
+    var settings = "flex flex-col space-y-2 justify-center bg-[#343a44] w-screen h-screen"
     return success ? (
         <div className={settings}>
-            <div className="w-1/2">
-                <LobbySettings/>
+            <div className="flex flex-row justify-center space-x-2">
+                <div className="w-1/2">
+                    <LobbySettings/>
+                </div>
+                <div className = "flex flex-col space-y-2 w-1/4 h-screen">
+                    <div>
+                        <PlayerName/>
+                    </div>
+                    <div class = "grow">
+                        <PlayerList content={nicknameList}/>
+                    </div>
+                    <div>  
+                        <Ready/>
+                    </div>
+                </div>
+                
+                
             </div>
-            <div className = "flex flex-col space-y-2 w-1/4 h-screen">
-                <div>
-                    <PlayerName/>
-                </div>
-                <div class = "h-80">
-                    <PlayerList content={nicknameList}/>
-                </div>
-                <div>  
-                    <Ready/>
-                </div>
-            </div>
-            
-            
-            <h1> {window.location.pathname} </h1>
         </div>
-        
     ) : (
         <Homepage error={true} message={errorMessage}/>
     )
