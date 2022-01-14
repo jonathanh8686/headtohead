@@ -12,6 +12,7 @@ export default function Lobby(props) {
     //ready button
     const [success, setSuccess] = useState(true);
     const [errorMessage, setErrorMessage] = useState("");
+    const [nicknameList, setNicknameList] = useState([]);
     useEffect(() => {
         console.log(props);
         socket.on("test", (msg) => {
@@ -30,6 +31,9 @@ export default function Lobby(props) {
             }
         })
         
+        socket.on('updateNickname', (msg) => {
+            setNicknameList(msg['nicknames']);
+        })
         
         
     }, []);
@@ -37,7 +41,7 @@ export default function Lobby(props) {
     var settings = "flex flex-row space-x-2 bg-[#343a44] w-screen h-screen"
     return success ? (
         <div className={settings}>
-            <div className = "w-1/2">
+            <div className="w-1/2">
                 <LobbySettings/>
             </div>
             <div className = "flex flex-col space-y-2 w-1/4 h-screen">
@@ -45,7 +49,7 @@ export default function Lobby(props) {
                     <PlayerName/>
                 </div>
                 <div class = "h-80">
-                    <PlayerList/>
+                    <PlayerList content={nicknameList}/>
                 </div>
                 <div>  
                     <Ready/>
