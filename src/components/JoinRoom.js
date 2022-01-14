@@ -43,9 +43,11 @@ export default function Joinroom(props) {
     return (
         
         <div className = "flex-col-1 flex-col space-y-2">
+            {/*
             <div>
                 <MyTextField id="custom-mine" variant="outlined" label="name"  InputLabelProps = {{className : "text-white"}}/>
             </div>
+            */}
             <div>
                 <MyTextField id="outlined-basic" label="room id" variant="outlined" onChange={changeRV} InputLabelProps = {{className : "text-white"}}/>
                 </div>

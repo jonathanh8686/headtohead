@@ -47,12 +47,13 @@ export default function Lobby(props) {
                 })
             }
         })
-        
-        
-        
-        
     }, []);
-
+    useEffect(() => {
+        socket.emit('updatePlayerNickname', {
+            'newName' : nickname
+        })
+        socket.emit('getNicknameList')
+    }, [nickname]);
     var settings = "flex flex-col space-y-2 justify-center bg-[#343a44] w-screen h-screen"
     return success ? (
         <div className={settings}>
@@ -62,9 +63,9 @@ export default function Lobby(props) {
                 </div>
                 <div className = "flex flex-col space-y-2 w-1/4 h-screen">
                     <div>
-                        <PlayerName name={nickname}/>
+                        <PlayerName name={nickname} setNickname={setNickname}/>
                     </div>
-                    <div class = "grow">
+                    <div className = "grow">
                         <PlayerList content={nicknameList}/>
                     </div>
                     <div>  
