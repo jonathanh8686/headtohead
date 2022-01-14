@@ -10,28 +10,38 @@ import PlayerName from './PlayerName'
 export default function Lobby(props) {
     //list of player names (given an array)
     //ready button
-    const [success, setSuccess] = useState(true);
+    const [success, setSuccess] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
     const [nicknameList, setNicknameList] = useState([]);
+    const [nickname, setNickname] = useState('');
+
+    const genNickname = () => {
+        let alph = 'abcdefghijklmnopqrstuvwxyz';
+        var result = '';
+        for(let i = 0; i < 10; i++){
+            result += alph.charAt(Math.floor(Math.random() * alph.length));
+        }
+        return result;
+    }
     useEffect(() => {
         console.log(props);
         socket.on("test", (msg) => {
             console.log(msg);
         }); 
         var pth = window.location.pathname;
+        var newNickname = genNickname();
         socket.emit('roomRequest', {
-            'nickname': 'asdf',
+            'nickname': newNickname,
             'roomID': pth.split('/').pop()
         });
         
         socket.on('roomRequestResult', (msg) => {
             if(msg['result'] == 'failure'){
-                setSuccess(false);
                 setErrorMessage(msg['message']);
             } else {
-                socket.emit('getNicknameList', {
-                    'roomID' : pth.split('/').pop()
-                });
+                setSuccess(true);
+                setNickname(newNickname);
+                socket.emit('getNicknameList');
                 socket.on('updateNickname', (msg) => {
                     setNicknameList(msg['nicknames']);
                 })
@@ -52,7 +62,7 @@ export default function Lobby(props) {
                 </div>
                 <div className = "flex flex-col space-y-2 w-1/4 h-screen">
                     <div>
-                        <PlayerName/>
+                        <PlayerName name={nickname}/>
                     </div>
                     <div class = "grow">
                         <PlayerList content={nicknameList}/>

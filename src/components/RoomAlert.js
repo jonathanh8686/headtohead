@@ -9,7 +9,7 @@ export default function RoomAlert(props) {
         setOpen(false);
     }
     return (props.error) ? (
-        <Snackbar open={open} onClose={handleClose}>
+        <Snackbar open={open} onClose={handleClose} className='align-bottom justify-center'>
             <Alert variant="filled" severity="error" onClose={handleClose}> {props.message} </Alert>
         </Snackbar>
         
