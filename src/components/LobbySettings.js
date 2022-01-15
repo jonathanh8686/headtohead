@@ -1,14 +1,27 @@
 import React, { useState } from "react";
+import Lobby from "./Lobby";
 
 export default function LobbySettings(props) {
-    var settings = "flex-row h-screen justify-center bg-[#FFFFFF] rounded-2xl p-2"
-    var buttonSettings = "bg-transparent hover:bg-blue-500 focus:bg-blue-500 focus:text-white active:bg-violet-600 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
-    
-    var games = ["game1", "game2", "game3"]
+    var settings = "flex-row h-screen justify-center space-x-2 bg-[#FFFFFF] rounded-2xl p-2"
+    var buttonUntoggled = "bg-transparent text-blue-700 font-semibold py-2 px-4 border border-blue-500 rounded"
+    var buttonToggled = "bg-blue-500 text-white font-semibold py-2 py-2 px-4 border border-blue-500 rounded"
 
-    const gameButton = (gameName) => {
+
+    var games = ["game1", "game2", "game3"]
+    
+
+    const untoggledButton = (gameName) => {
         return (
-            <button class={buttonSettings}>
+            <button className={buttonUntoggled} onClick={props.setGameSelect(gameName)}>
+                {gameName}
+            </button>
+        )
+    }
+
+
+    const toggledButton = (gameName) => {
+        return (
+            <button className={buttonToggled}>
                 {gameName}
             </button>
         )
@@ -25,7 +38,9 @@ export default function LobbySettings(props) {
     
     return (
         <div className = {settings}>
-            {games.map((game) => props.isLeader ? gameButton(game):gameDisplay(game))}
+            {/* {games.map((game) => props.isLeader ? gameButton(game):gameDisplay(game))} */
+                games.map((game) => game==props.gameSelect ? toggledButton(game):untoggledButton(game))
+            }
         </div>
     )
 }
