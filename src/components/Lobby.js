@@ -14,6 +14,7 @@ export default function Lobby(props) {
     const [errorMessage, setErrorMessage] = useState("");
     const [nicknameList, setNicknameList] = useState([]);
     const [nickname, setNickname] = useState('');
+    const [isLeader, setIsLeader] = useState(false);
 
     const genNickname = () => {
         let alph = 'abcdefghijklmnopqrstuvwxyz';
@@ -42,18 +43,25 @@ export default function Lobby(props) {
                 setSuccess(true);
                 setNickname(newNickname);
                 socket.emit('getNicknameList');
+                socket.emit('isLeader');
                 socket.on('updateNickname', (msg) => {
                     setNicknameList(msg['nicknames']);
+                })
+                socket.on('updateLeader', (msg) => {
+                    setIsLeader(msg['isLeader']);
                 })
             }
         })
     }, []);
+
     useEffect(() => {
         socket.emit('updatePlayerNickname', {
             'newName' : nickname
         })
         socket.emit('getNicknameList')
     }, [nickname]);
+
+
     var settings = "flex flex-col space-y-2 justify-center bg-[#343a44] w-screen h-screen"
     return success ? (
         <div className={settings}>
@@ -69,7 +77,7 @@ export default function Lobby(props) {
                         <PlayerList content={nicknameList}/>
                     </div>
                     <div>  
-                        <Ready/>
+                        <Ready isLeader={isLeader}/>
                     </div>
                 </div>
                 
