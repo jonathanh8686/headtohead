@@ -15,6 +15,8 @@ export default function Lobby(props) {
     const [nicknameList, setNicknameList] = useState([]);
     const [nickname, setNickname] = useState('');
     const [isLeader, setIsLeader] = useState(false);
+    const [gameSelect, setGameSelect] = useState("");
+
 
     const genNickname = () => {
         let alph = 'abcdefghijklmnopqrstuvwxyz';
@@ -67,7 +69,7 @@ export default function Lobby(props) {
         <div className={settings}>
             <div className="flex flex-row justify-center space-x-2">
                 <div className="w-1/2">
-                    <LobbySettings/>
+                    <LobbySettings isLeader={isLeader}/>
                 </div>
                 <div className = "flex flex-col space-y-2 w-1/4 h-screen">
                     <div>
