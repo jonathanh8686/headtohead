@@ -22,11 +22,19 @@ export default function Joinroom(props) {
 
     const sendToRoom = () => {
         console.log(window.location.href + roomValue)
-        window.open(`${window.location.origin}/room/${roomValue}`, '_self');
+        socket.emit('tryRoom', ({roomID: roomValue}));
+        socket.on('tryRoom', (msg) => {
+            console.log(msg['result']);
+            if (msg['result'] == 'failure') {
+                console.log("failed");
+            } else {
+                window.open(`${window.location.origin}/room/${roomValue}`, '_self');
+            }
+        })
     };
     
     useEffect(() => {
-        console.log(props);
+        console.log(roomValue);
         socket.on("test", (msg) => {
             console.log(msg);
         });
