@@ -15,7 +15,7 @@ export default function Lobby(props) {
     const [nicknameList, setNicknameList] = useState([]);
     const [nickname, setNickname] = useState('');
     const [isLeader, setIsLeader] = useState(false);
-    const [gameSelect, setGameSelect] = useState("game1");
+    const [gameSelect, setGameSelect] = useState("");
 
 
     const genNickname = () => {

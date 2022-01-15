@@ -9,19 +9,21 @@ export default function LobbySettings(props) {
 
     var games = ["game1", "game2", "game3"]
     
-
-    const untoggledButton = (gameName) => {
+    
+    const untoggledButton = (gameName,key) => {
         return (
-            <button className={buttonUntoggled} onClick={props.setGameSelect(gameName)}>
+            <button className={buttonUntoggled} key={key} 
+                onClick={props.isLeader ? ()=>{props.setGameSelect(gameName)}:()=>{}}>
                 {gameName}
             </button>
         )
     }
 
 
-    const toggledButton = (gameName) => {
+    const toggledButton = (gameName,key) => {
         return (
-            <button className={buttonToggled}>
+            <button className={buttonToggled} key={key} 
+                onClick={props.isLeader ? ()=>{props.setGameSelect('')}:()=>{}}>
                 {gameName}
             </button>
         )
@@ -39,7 +41,9 @@ export default function LobbySettings(props) {
     return (
         <div className = {settings}>
             {/* {games.map((game) => props.isLeader ? gameButton(game):gameDisplay(game))} */
-                games.map((game) => game==props.gameSelect ? toggledButton(game):untoggledButton(game))
+                games.map((game) => game==props.gameSelect ? 
+                toggledButton(game,game):
+                untoggledButton(game,game))
             }
         </div>
     )
