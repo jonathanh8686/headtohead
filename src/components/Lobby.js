@@ -52,6 +52,9 @@ export default function Lobby(props) {
                 socket.on('updateLeader', (msg) => {
                     setIsLeader(msg['isLeader']);
                 })
+                socket.on('updateGameSelect',(msg) =>{
+                    setGameSelect(msg['game']);
+                })
             }
         })
     }, []);
@@ -63,6 +66,11 @@ export default function Lobby(props) {
         socket.emit('getNicknameList')
     }, [nickname]);
 
+    useEffect(() => {
+        socket.emit('selectGame', {
+            'game':gameSelect
+        })
+    }, [gameSelect])
 
     var settings = "flex flex-col space-y-2 justify-center bg-[#343a44] w-screen h-screen"
     return success ? (
