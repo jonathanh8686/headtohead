@@ -1,6 +1,6 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import socket from '../Socket'
-import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Homepage from './Homepage'
 import LobbySettings from './LobbySettings'
 import PlayerList from './PlayerList'
@@ -17,58 +17,62 @@ export default function Lobby(props) {
     const [isLeader, setIsLeader] = useState(false);
     const [gameSelect, setGameSelect] = useState("");
 
-
     const genNickname = () => {
+        // TODO: change this so that they are readable
         let alph = 'abcdefghijklmnopqrstuvwxyz';
         var result = '';
-        for(let i = 0; i < 10; i++){
+        for (let i = 0; i < 10; i++) {
             result += alph.charAt(Math.floor(Math.random() * alph.length));
         }
         return result;
     }
+
+    function onSuccessfulRoomJoin(newNickname) {
+        setSuccess(true);
+        setNickname(nickname);
+
+        socket.emit('getNicknameList');
+        socket.emit('isLeader');
+
+        socket.on('updateNickname', (msg) => {
+            setNicknameList(msg['nicknames']);
+        })
+        socket.on('updateLeader', (msg) => {
+            setIsLeader(msg['isLeader']);
+        })
+        socket.on('updateGameSelect', (msg) => {
+            setGameSelect(msg['game']);
+        })
+    }
+
     useEffect(() => {
-        console.log(props);
-        socket.on("test", (msg) => {
-            console.log(msg);
-        }); 
         var pth = window.location.pathname;
         var newNickname = genNickname();
+
         socket.emit('roomRequest', {
             'nickname': newNickname,
             'roomID': pth.split('/').pop()
         });
-        
+
         socket.on('roomRequestResult', (msg) => {
-            if(msg['result'] == 'failure'){
+            if (msg['result'] == 'failure')
                 setErrorMessage(msg['message']);
-            } else {
-                setSuccess(true);
-                setNickname(newNickname);
-                socket.emit('getNicknameList');
-                socket.emit('isLeader');
-                socket.on('updateNickname', (msg) => {
-                    setNicknameList(msg['nicknames']);
-                })
-                socket.on('updateLeader', (msg) => {
-                    setIsLeader(msg['isLeader']);
-                })
-                socket.on('updateGameSelect',(msg) =>{
-                    setGameSelect(msg['game']);
-                })
-            }
+            else
+                onSuccessfulRoomJoin(newNickname);
         })
+
     }, []);
 
     useEffect(() => {
         socket.emit('updatePlayerNickname', {
-            'newName' : nickname
+            'newName': nickname
         })
         socket.emit('getNicknameList')
     }, [nickname]);
 
     useEffect(() => {
-        socket.emit('selectGame', {
-            'game':gameSelect
+        socket.emit('gameSelected', {
+            'game': gameSelect
         })
     }, [gameSelect])
 
@@ -77,24 +81,24 @@ export default function Lobby(props) {
         <div className={settings}>
             <div className="flex flex-row justify-center space-x-2">
                 <div className="w-1/2">
-                    <LobbySettings isLeader={isLeader} gameSelect={gameSelect} setGameSelect={setGameSelect}/>
+                    <LobbySettings isLeader={isLeader} gameSelect={gameSelect} setGameSelect={setGameSelect} />
                 </div>
-                <div className = "flex flex-col space-y-2 w-1/4 h-screen">
+                <div className="flex flex-col space-y-2 w-1/4 h-screen">
                     <div>
-                        <PlayerName name={nickname} setNickname={setNickname}/>
+                        <PlayerName name={nickname} setNickname={setNickname} />
                     </div>
-                    <div className = "grow">
-                        <PlayerList content={nicknameList}/>
+                    <div className="grow">
+                        <PlayerList content={nicknameList} />
                     </div>
-                    <div>  
-                        <Ready isLeader={isLeader}/>
+                    <div>
+                        <Ready isLeader={isLeader} />
                     </div>
                 </div>
-                
-                
+
+
             </div>
         </div>
     ) : (
-        <Homepage error={true} message={errorMessage}/>
+        <Homepage error={true} message={errorMessage} />
     )
 }

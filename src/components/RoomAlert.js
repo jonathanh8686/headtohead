@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import Alert from '@mui/material/Alert'
 import Snackbar from '@mui/material/Snackbar'
 
@@ -8,10 +8,10 @@ export default function RoomAlert(props) {
     const handleClose = () => {
         setOpen(false);
     }
-    return (props.error) ? (
-        <Snackbar open={open} onClose={handleClose} className='align-bottom justify-center'>
+
+    return (props.error &&
+        (<Snackbar open={open} onClose={handleClose} className='align-bottom justify-center'>
             <Alert variant="filled" severity="error" onClose={handleClose}> {props.message} </Alert>
-        </Snackbar>
-        
-    ) : ''
+        </Snackbar>)
+    )
 }
