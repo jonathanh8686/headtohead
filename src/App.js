@@ -26,7 +26,6 @@ function App() {
       <Routes>
         <Route path='/' element={<Homepage/>}/>
         <Route path='room/*' element={<Lobby/>}/>
-        <Route path='/failure' element={<Homepage error={true}/>}/>
       </Routes>
       
       

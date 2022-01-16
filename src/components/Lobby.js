@@ -27,12 +27,12 @@ export default function Lobby(props) {
         return result;
     }
 
-    function onSuccessfulRoomJoin(newNickname) {
+    function onSuccessfulRoomJoin() {
         setSuccess(true);
-        setNickname(nickname);
 
         socket.emit('getNicknameList');
         socket.emit('isLeader');
+        socket.emit("getGameSelect");
 
         socket.on('updateNickname', (msg) => {
             setNicknameList(msg['nicknames']);
@@ -55,10 +55,12 @@ export default function Lobby(props) {
         });
 
         socket.on('roomRequestResult', (msg) => {
-            if (msg['result'] == 'failure')
+            if (msg['result'] == 'failure') {
                 setErrorMessage(msg['message']);
-            else
+            } else {
+                setNickname(newNickname)
                 onSuccessfulRoomJoin(newNickname);
+            }
         })
 
     }, []);

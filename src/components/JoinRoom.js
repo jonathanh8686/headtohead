@@ -6,7 +6,7 @@ import socket from '../Socket'
 
 export default function Joinroom(props) {
     const MyTextField = styled(TextField)({
-        '& .MuiOutlinedInput-root':{
+        '& .MuiOutlinedInput-root': {
             '&.Mui-focused fieldset': {
                 borderColor: '#147199',
             },
@@ -14,15 +14,14 @@ export default function Joinroom(props) {
     });
 
     var roomValue = "";
-    
+
     const changeRV = e => {
         roomValue = e.target.value;
-        console.log(roomValue);
     };
 
     const sendToRoom = () => {
         console.log(window.location.href + roomValue)
-        socket.emit('tryRoom', ({roomID: roomValue}));
+        socket.emit('tryRoom', ({ roomID: roomValue }));
         socket.on('tryRoom', (msg) => {
             console.log(msg['result']);
             if (msg['result'] == 'failure') {
@@ -32,37 +31,17 @@ export default function Joinroom(props) {
             }
         })
     };
-    
-    useEffect(() => {
-        console.log(roomValue);
-        socket.on("test", (msg) => {
-            console.log(msg);
-        });
-    }, []);
-    
-    
-    
-
-    const test = () => socket.emit('test', {
-        'id': 'hi',
-        'room': 'boom'
-    })
 
     return (
-        
-        <div className = "flex-col-1 flex-col space-y-2">
-            {/*
-            <div>
-                <MyTextField id="custom-mine" variant="outlined" label="name"  InputLabelProps = {{className : "text-white"}}/>
-            </div>
-            */}
+
+        <div className="flex-col-1 flex-col space-y-2">
             <div>
                 <MyTextField id="outlined-basic" label="room id" variant="outlined" onChange={changeRV} InputLabelProps = {{className : "text-white"}}/>
-                </div>
+            </div>
+
             <div>
                 <Button className="bg-[#115D7E]" variant="contained" onClick={sendToRoom}>join room</Button>
             </div>
-            
         </div>
     )
 }

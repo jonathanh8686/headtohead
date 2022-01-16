@@ -40,7 +40,7 @@ export default function LobbySettings(props) {
     
     return (
         <div className = {settings}>
-            {/* {games.map((game) => props.isLeader ? gameButton(game):gameDisplay(game))} */
+            {
                 games.map((game) => game==props.gameSelect ? 
                 toggledButton(game,game):
                 untoggledButton(game,game))
