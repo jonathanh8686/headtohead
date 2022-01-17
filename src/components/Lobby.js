@@ -29,10 +29,10 @@ export default function Lobby(props) {
 
     function onSuccessfulRoomJoin() {
         setSuccess(true);
-
-        socket.emit('getNicknameList');
-        socket.emit('isLeader');
-        socket.emit("getGameSelect");
+        
+        socket.emit('requestNicknameList');
+        socket.emit('requestLeader');
+        socket.emit("requestSelectedGame");
 
         socket.on('updateNickname', (msg) => {
             setNicknameList(msg['nicknames']);
@@ -55,6 +55,7 @@ export default function Lobby(props) {
         });
 
         socket.on('roomRequestResult', (msg) => {
+            console.log(msg);
             if (msg['result'] == 'failure') {
                 setErrorMessage(msg['message']);
             } else {
@@ -66,14 +67,16 @@ export default function Lobby(props) {
     }, []);
 
     useEffect(() => {
-        socket.emit('updatePlayerNickname', {
+        if(success == false) return;
+        socket.emit('updateNickname', {
             'newName': nickname
         })
-        socket.emit('getNicknameList')
+        socket.emit('requestNicknameList')
     }, [nickname]);
 
     useEffect(() => {
-        socket.emit('gameSelected', {
+        if(success == false) return; 
+        socket.emit('setSelectedGame', {
             'game': gameSelect
         })
     }, [gameSelect])
@@ -100,7 +103,5 @@ export default function Lobby(props) {
 
             </div>
         </div>
-    ) : (
-        <Homepage error={true} message={errorMessage} />
-    )
+    ) : ( <Homepage error={true} message={errorMessage} /> )
 }

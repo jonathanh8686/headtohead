@@ -21,15 +21,7 @@ export default function Joinroom(props) {
 
     const sendToRoom = () => {
         console.log(window.location.href + roomValue)
-        socket.emit('tryRoom', ({ roomID: roomValue }));
-        socket.on('tryRoom', (msg) => {
-            console.log(msg['result']);
-            if (msg['result'] == 'failure') {
-                console.log("failed");
-            } else {
-                window.open(`${window.location.origin}/room/${roomValue}`, '_self');
-            }
-        })
+        window.open(`${window.location.origin}/room/${roomValue}`, '_self');
     };
 
     return (
