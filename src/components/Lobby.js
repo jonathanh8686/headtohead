@@ -3,9 +3,9 @@ import socket from '../Socket'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Homepage from './Homepage'
 import LobbySettings from './LobbySettings'
-import PlayerList from './PlayerList'
-import Ready from './Ready'
-import PlayerName from './PlayerName'
+import PlayerList from './lobby/PlayerList'
+import Ready from './lobby/Ready'
+import PlayerName from './lobby/PlayerName'
 
 export default function Lobby(props) {
     //list of player names (given an array)

@@ -1,5 +1,5 @@
 import React from 'react'
-import Navbar from './Navbar'
+import TitleBar from './TitleBar'
 import Joinroom from './JoinRoom'
 import {useParams} from 'react-router-dom'
 import Alert from '@mui/material/Alert'
@@ -9,7 +9,7 @@ export default function Homepage(props) {
     
     return (
         <div className="flex-col bg-[#343a44]">
-            <div><Navbar/></div>
+            <div><TitleBar/></div>
             {/* Rename Navbar*/}
             <div className="min-h-screen text-center mt-5">
                 <Joinroom/>
