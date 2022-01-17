@@ -8,10 +8,10 @@ import RoomAlert from './RoomAlert'
 export default function Homepage(props) {
     
     return (
-        <div className="min-h-screen flex-col bg-[#343a44]">
-            <div><Navbar/></div> 
-            {/* TODO: rename navbar */}
-            <div className="text-center mt-5">
+        <div className="flex-col bg-[#343a44]">
+            <div><Navbar/></div>
+            {/* Rename Navbar*/}
+            <div className="min-h-screen text-center mt-5">
                 <Joinroom/>
             </div>
             <div className=""><RoomAlert error={props.error} message={props.message}/></div>

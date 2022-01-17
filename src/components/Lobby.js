@@ -93,6 +93,7 @@ export default function Lobby(props) {
                         <PlayerList content={nicknameList} />
                     </div>
                     <div>
+                        {/*Change name to StartReady*/}
                         <Ready isLeader={isLeader} />
                     </div>
                 </div>
