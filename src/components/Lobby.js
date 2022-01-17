@@ -68,7 +68,7 @@ export default function Lobby(props) {
 
     useEffect(() => {
         if(success == false) return;
-        socket.emit('updateNickname', {
+        socket.emit('setNickname', {
             'newName': nickname
         })
         socket.emit('requestNicknameList')
