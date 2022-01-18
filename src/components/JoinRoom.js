@@ -26,13 +26,13 @@ export default function Joinroom(props) {
 
     return (
 
-        <div className="flex-col-1 flex-col space-y-2">
+         <div className="flex-col-1 flex-col space-y-2 border-2 border-slate-300 p-8 bg-white shadow-2xl rounded-xl">
             <div>
-                <MyTextField id="outlined-basic" label="room id" variant="outlined" onChange={changeRV} InputLabelProps = {{className : "text-white"}}/>
+                <MyTextField id="outlined-basic" label="Room ID" variant="outlined" onChange={changeRV} InputLabelProps = {{className : "text-celadonblue"}}/>
             </div>
 
             <div>
-                <Button className="bg-[#115D7E]" variant="contained" onClick={sendToRoom}>join room</Button>
+                <Button className="bg-celadonblue" variant="contained" onClick={sendToRoom}>join room</Button>
             </div>
         </div>
     )

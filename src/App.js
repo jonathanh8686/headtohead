@@ -4,7 +4,7 @@ import {BrowserRouter as Router, Routes, Route, Redirect} from 'react-router-dom
 import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client'
 import Homepage from './components/Homepage'
-import Lobby from './components/Lobby'
+import Lobby from './components/lobby/Lobby'
 import socket from './Socket'
 import { getThemeProps } from '@mui/system';
 
