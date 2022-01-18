@@ -2,48 +2,42 @@ import React, { useState } from "react";
 import Lobby from "./Lobby";
 
 export default function LobbySettings(props) {
-    var settings = "flex-row h-screen justify-center space-x-2 bg-[#FFFFFF] rounded-2xl p-2"
-    var buttonUntoggled = "bg-transparent text-blue-700 font-semibold py-2 px-4 border border-blue-500 rounded"
-    var buttonToggled = "bg-blue-500 text-white font-semibold py-2 py-2 px-4 border border-blue-500 rounded"
-
-
     var games = ["game1", "game2", "game3"]
-    
-    
-    const untoggledButton = (gameName,key) => {
+
+    const untoggledButton = (gameName) => {
         return (
-            <button className={buttonUntoggled} key={key} 
-                onClick={props.isLeader ? ()=>{props.setGameSelect(gameName)}:()=>{}}>
+            <button className="bg-transparent text-blue-700 font-semibold py-2 px-4 border border-blue-500 rounded" key={gameName}
+                onClick={props.isLeader ? () => { props.setGameSelect(gameName) } : () => { }}>
                 {gameName}
             </button>
         )
     }
 
 
-    const toggledButton = (gameName,key) => {
+    const toggledButton = (gameName) => {
         return (
-            <button className={buttonToggled} key={key} 
-                onClick={props.isLeader ? ()=>{props.setGameSelect('')}:()=>{}}>
+            <button className="bg-blue-500 text-white font-semibold py-2 px-4 border border-blue-500 rounded" key={gameName}
+                onClick={props.isLeader ? () => { props.setGameSelect('') } : () => { }}>
                 {gameName}
             </button>
         )
     }
 
     const gameDisplay = (gameName) => {
-        return(
+        return (
             <div className="bg-blue-500">
                 {gameName}
             </div>
-        
+
         )
     }
-    
+
     return (
-        <div className = {settings}>
+        <div className="flex-row h-screen justify-center space-x-2 bg-[#FFFFFF] rounded-2xl p-2">
             {
-                games.map((game) => game==props.gameSelect ? 
-                toggledButton(game,game):
-                untoggledButton(game,game))
+                games.map((game) => game == props.gameSelect ?
+                    toggledButton(game) :
+                    untoggledButton(game))
             }
         </div>
     )

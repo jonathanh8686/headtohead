@@ -81,9 +81,8 @@ export default function Lobby(props) {
         })
     }, [gameSelect])
 
-    var settings = "flex flex-col space-y-2 justify-center bg-[#343a44] w-screen h-screen"
     return success ? (
-        <div className={settings}>
+        <div className="flex flex-col space-y-2 justify-center bg-[#343a44] w-screen h-screen">
             <div className="flex flex-row justify-center space-x-2">
                 <div className="w-1/2">
                     <LobbySettings isLeader={isLeader} gameSelect={gameSelect} setGameSelect={setGameSelect} />

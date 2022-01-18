@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
 import StarIcon from '@mui/icons-material/Star';
-//import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
 
 export default function PlayerList(props){
-    var settings = "flex-col-1 h-full w-full bg-[#FFFFFF] rounded-2xl p-2"
     const leaderEntry = (nickname, key) => {
         console.log(`leader entry generated nickname:${nickname} index:${key}`);
         return (
@@ -25,7 +23,7 @@ export default function PlayerList(props){
     }
     
     return(
-        <div className = {settings}>
+        <div className ="flex-col-1 h-full w-full bg-[#FFFFFF] rounded-2xl p-2">
             {props.content.map((nickname,index) => 
                 (index === 0) ? leaderEntry(nickname,index) : otherEntry(nickname,index)
             )}
