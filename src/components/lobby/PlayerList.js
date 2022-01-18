@@ -8,9 +8,9 @@ export default function PlayerList(props){
     const leaderEntry = (nickname, key) => {
         console.log(`leader entry generated nickname:${nickname} index:${key}`);
         return (
-            <div className="flex bg-[#FFFFFF] hover:bg-[#DADADA]" key={key}>
-                <div>{nickname}</div>
-                <StarIcon/>
+            <div className="flex bg-[#FFFFFF] hover:bg-[#DADADA] w-full" key={key}>
+                <div className="w-11/12">{nickname}</div>
+                <StarIcon className="w-1/12"/>
             </div>
         )
     }
@@ -18,7 +18,7 @@ export default function PlayerList(props){
         console.log('other entry generated');
         return (
             <div className="flex bg-[#FFFFFF] hover:bg-[#DADADA]" key={key}>
-                <div>{nickname}</div>
+                <div className="w-11/12">{nickname}</div>
                 <KeyboardDoubleArrowUpIcon/>
             </div>
         )
@@ -26,10 +26,9 @@ export default function PlayerList(props){
     
     return(
         <div className = {settings}>
-            {/*props.content.map((nickname,index) => {
-                (index == 0) ? leaderEntry(nickname,index) : otherEntry(nickname,index);
-            })*/}
-            {props.content.map(nickname=> <div key={nickname}>{nickname}</div>)}
+            {props.content.map((nickname,index) => 
+                (index === 0) ? leaderEntry(nickname,index) : otherEntry(nickname,index)
+            )}
             
             
         </div>
