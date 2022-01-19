@@ -21,7 +21,7 @@ export default function Lobby(props) {
 
     const genNickname = () => {
         // TODO: change this so that they are readable
-        let alph = 'abcdefghijklmnopqrstuvwxyz';
+        let alph = 'abcdefghijklmnopqrstuwxyz';
         var result = '';
         for (let i = 0; i < 10; i++) {
             result += alph.charAt(Math.floor(Math.random() * alph.length));
