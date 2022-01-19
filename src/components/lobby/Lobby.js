@@ -3,6 +3,7 @@ import socket from '../../Socket'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Homepage from '../Homepage'
 import LobbySettings from './LobbySettings'
+import LobbyContent from './LobbyContent'
 import PlayerList from './PlayerList'
 import Ready from './Ready'
 import PlayerName from './PlayerName'
@@ -10,12 +11,13 @@ import PlayerName from './PlayerName'
 export default function Lobby(props) {
     //list of player names (given an array)
     //ready button
-    const [success, setSuccess] = useState(false);
+    const [success, setSuccess] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
     const [nicknameList, setNicknameList] = useState([]);
     const [nickname, setNickname] = useState('');
     const [isLeader, setIsLeader] = useState(false);
     const [gameSelect, setGameSelect] = useState("");
+    const [active, setActive] = useState(false);
 
     const genNickname = () => {
         // TODO: change this so that they are readable
@@ -28,7 +30,7 @@ export default function Lobby(props) {
     }
 
     function onSuccessfulRoomJoin() {
-        setSuccess(true);
+        setSuccess('lobby');
         
         socket.emit('requestNicknameList');
         socket.emit('requestLeader');
@@ -58,6 +60,7 @@ export default function Lobby(props) {
             console.log(msg);
             if (msg['result'] == 'failure') {
                 setErrorMessage(msg['message']);
+                setSuccess('error');
             } else {
                 setNickname(newNickname)
                 onSuccessfulRoomJoin(newNickname);
@@ -81,27 +84,35 @@ export default function Lobby(props) {
         })
     }, [gameSelect])
 
-    return success ? (
-        <div className="flex flex-col space-y-2 justify-center bg-[#343a44] w-screen h-screen">
-            <div className="flex flex-row justify-center space-x-2">
-                <div className="w-1/2">
-                    <LobbySettings isLeader={isLeader} gameSelect={gameSelect} setGameSelect={setGameSelect} />
-                </div>
-                <div className="flex flex-col space-y-2 w-1/4 h-screen">
-                    <div>
-                        <PlayerName name={nickname} setNickname={setNickname} />
+    if(success === 'lobby'){
+        return(
+            <div className="flex flex-col space-y-2 justify-center bg-[#343a44] w-screen h-screen">
+                <div className="flex flex-row justify-center space-x-2">
+                    <div className="w-3/4">
+                        <LobbyContent active={active} isLeader={isLeader} gameSelect={gameSelect} setGameSelect={setGameSelect} />
                     </div>
-                    <div className="grow">
-                        <PlayerList content={nicknameList} />
+                    <div className="flex flex-col space-y-2 w-1/6 h-screen">
+                        <div>
+                            <PlayerName name={nickname} setNickname={setNickname} />
+                        </div>
+                        <div className="grow">
+                            <PlayerList content={nicknameList} />
+                        </div>
+                        <div>
+                            {/*Change name to StartReady*/}
+                            <Ready isLeader={isLeader} />
+                        </div>
                     </div>
-                    <div>
-                        {/*Change name to StartReady*/}
-                        <Ready isLeader={isLeader} />
-                    </div>
-                </div>
 
 
+                </div>
             </div>
-        </div>
-    ) : ( <Homepage error={true} message={errorMessage} /> )
+        )
+    } else if (success === 'error'){
+        return (
+            <Homepage error={true} message={errorMessage} />
+        )
+    } else {
+        return (<div></div>)
+    }
 }
