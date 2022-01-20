@@ -5,7 +5,7 @@ import Homepage from '../Homepage'
 import LobbySettings from './LobbySettings'
 import LobbyContent from './LobbyContent'
 import PlayerList from './PlayerList'
-import Ready from './Ready'
+import StartReady from './Ready'
 import PlayerName from './PlayerName'
 
 export default function Lobby(props) {
@@ -31,7 +31,7 @@ export default function Lobby(props) {
 
     function onSuccessfulRoomJoin() {
         setSuccess('lobby');
-        
+
         socket.emit('requestNicknameList');
         socket.emit('requestLeader');
         socket.emit("requestSelectedGame");
@@ -39,12 +39,23 @@ export default function Lobby(props) {
         socket.on('updateNickname', (msg) => {
             setNicknameList(msg['nicknames']);
         })
+
         socket.on('updateLeader', (msg) => {
             setIsLeader(msg['isLeader']);
         })
+
         socket.on('updateGameSelect', (msg) => {
             setGameSelect(msg['game']);
         })
+
+        socket.on("startGame", () => {
+            setActive(true);
+        });
+    }
+
+    function gameStart() {
+        if(isLeader === false) return;
+        socket.emit('startSelectedGame')
     }
 
     useEffect(() => {
@@ -70,7 +81,7 @@ export default function Lobby(props) {
     }, []);
 
     useEffect(() => {
-        if(success == false) return;
+        if (success == false) return;
         socket.emit('setNickname', {
             'newName': nickname
         })
@@ -78,17 +89,17 @@ export default function Lobby(props) {
     }, [nickname]);
 
     useEffect(() => {
-        if(success == false) return; 
+        if (success == false) return;
         socket.emit('setSelectedGame', {
             'game': gameSelect
         })
     }, [gameSelect])
 
-    if(success === 'lobby'){
-        return(
+    if (success === 'lobby') {
+        return (
             <div className="flex flex-col space-y-2 justify-center bg-[#343a44] w-screen h-screen">
                 <div className="flex flex-row justify-center space-x-2">
-                    <div className="w-3/4">
+                    <div className="w-5/6">
                         <LobbyContent active={active} isLeader={isLeader} gameSelect={gameSelect} setGameSelect={setGameSelect} />
                     </div>
                     <div className="flex flex-col space-y-2 w-1/6 h-screen">
@@ -100,15 +111,13 @@ export default function Lobby(props) {
                         </div>
                         <div>
                             {/*Change name to StartReady*/}
-                            <Ready isLeader={isLeader} />
+                            <StartReady isLeader={isLeader} gameStart={gameStart} />
                         </div>
                     </div>
-
-
                 </div>
             </div>
         )
-    } else if (success === 'error'){
+    } else if (success === 'error') {
         return (
             <Homepage error={true} message={errorMessage} />
         )

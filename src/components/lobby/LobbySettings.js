@@ -1,7 +1,7 @@
 import React from "react";
 
 export default function LobbySettings(props) {
-    var games = ["game1", "game2", "game3"]
+    var games = ["ReactionTime", "game2", "game3"]
 
     const gameButton = (gameName, toggled) => {
         return (
@@ -16,7 +16,7 @@ export default function LobbySettings(props) {
     }
 
     return (
-        <div className="flex-row h-screen justify-center space-x-2 bg-[#FFFFFF] rounded-2xl p-2">
+        <div className="flex-row justify-center space-x-2 ">
             {
                 games.map((game) => gameButton(game, game == props.gameSelect))
             }
