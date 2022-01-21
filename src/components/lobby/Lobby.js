@@ -17,7 +17,7 @@ export default function Lobby(props) {
     const [nickname, setNickname] = useState('');
     const [isLeader, setIsLeader] = useState(false);
     const [gameSelect, setGameSelect] = useState("");
-    const [active, setActive] = useState(false);
+    const [status, setStatus] = useState("lobby");
 
     const genNickname = () => {
         // TODO: change this so that they are readable
@@ -48,8 +48,8 @@ export default function Lobby(props) {
             setGameSelect(msg['game']);
         })
 
-        socket.on("startGame", () => {
-            setActive(true);
+        socket.on("statusChange", (msg) => {
+            setStatus(msg['status']);
         });
     }
 
@@ -100,7 +100,7 @@ export default function Lobby(props) {
             <div className="flex flex-col space-y-2 justify-center bg-[#343a44] w-screen h-screen">
                 <div className="flex flex-row justify-center space-x-2">
                     <div className="w-5/6">
-                        <LobbyContent active={active} isLeader={isLeader} gameSelect={gameSelect} setGameSelect={setGameSelect} />
+                        <LobbyContent status={status} isLeader={isLeader} gameSelect={gameSelect} setGameSelect={setGameSelect} />
                     </div>
                     <div className="flex flex-col space-y-2 w-1/6 h-screen">
                         <div>
