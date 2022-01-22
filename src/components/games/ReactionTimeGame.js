@@ -5,7 +5,7 @@ export default function ReactionTimeGame() {
     const [isGreen, setIsGreen] = useState(false);
     const [greenTime, setGreenTime] = useState(undefined);
     const [showButton, setShowButton] = useState(true);
-    const [score, setScore] = useState(-1);
+    const [score, setScore] = useState(0);
     const [falseStarted, setFalseStarted] = useState(false);
     const [doubleFalseStarted, setDoubleFalseStarted] = useState(false);
 
@@ -27,7 +27,7 @@ export default function ReactionTimeGame() {
                 (
                     <button
                         className={(isGreen ? "bg-munsellgreen" : "bg-skyblue") + " w-1/2 h-1/2 rounded-xl drop-shadow-2xl text-7xl font-[Bebas_Neue] p-5"}
-                        onClick={() => {
+                        onMouseDown={() => {
                             if(!isGreen) {
                                 if(!falseStarted) {
                                     setFalseStarted(true);
