@@ -15,6 +15,11 @@ export default function ReactionTimeGame() {
         setGreenTime(Date.now());
     });
 
+    socket.on('resetReactionTime', () => {
+        setIsGreen(false);
+        setShowButton(true);
+    })
+
     useEffect(() => {
         return () => {
             setIsGreen(false);
@@ -35,7 +40,7 @@ export default function ReactionTimeGame() {
                             }
                             setScore(Date.now() - greenTime);
                             socket.emit("reactionTimeResult", {
-                                "score": score,
+                                "score": Date.now() - greenTime,
                             })
                             setShowButton(false);
                         }}>
