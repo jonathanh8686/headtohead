@@ -1,5 +1,5 @@
 import React from 'react'
-import ReactionTimeGame from '../games/ReactionTimeGame'
+import ReactionTimeGame from '../games/ReactionTime/ReactionTimeGame'
 import LobbySettings from './LobbySettings'
 
 export default function LobbyContent(props) {
