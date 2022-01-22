@@ -30,13 +30,7 @@ export default function ReactionTimeGame() {
                         className={(isGreen ? "bg-munsellgreen" : "bg-skyblue") + " w-1/2 h-1/2 rounded-xl drop-shadow-2xl text-7xl font-[Bebas_Neue] p-5"}
                         onMouseDown={() => {
                             if(!isGreen) {
-                                if(!falseStarted) {
-                                    setFalseStarted(true);
-                                } else {
-                                    setDoubleFalseStarted(true);
-                                    setScore(9999);
-                                    setShowButton(false);
-                                }
+                                socket.emit('processFalseStart');
                                 return;
                             }
                             setScore(Date.now() - greenTime);
