@@ -1,5 +1,6 @@
-import { React, useState } from 'react'
+import { React, useState, useEffect } from 'react'
 import socket from '../../../Socket'
+
 
 export default function ReactionTimeGame() {
     const [isGreen, setIsGreen] = useState(false);
@@ -11,8 +12,15 @@ export default function ReactionTimeGame() {
 
     socket.on('reactionTimeStart', () => {
         setIsGreen(true);
-        setGreenTime(Date.now())
+        setGreenTime(Date.now());
     });
+
+    useEffect(() => {
+        return () => {
+            setIsGreen(false);
+            setGreenTime(undefined);
+        }
+    }, []);
 
     return (
         <div className='flex justify-center items-center h-full'>
