@@ -1,5 +1,6 @@
 import { React, useState, useEffect } from 'react'
-import socket from '../../Socket'
+import socket from '../../../Socket'
+
 
 export default function ReactionTimeGame() {
     const [isGreen, setIsGreen] = useState(false);

@@ -1,5 +1,6 @@
 import React from 'react'
-import ReactionTimeGame from '../games/ReactionTimeGame'
+import ReactionTimeGame from '../games/ReactionTime/ReactionTimeGame'
+import ReactionTimeFinish from '../games/ReactionTime/ReactionTimeFinish'
 import LobbySettings from './LobbySettings'
 import WaitingRoom from './WaitingRoom'
 
@@ -31,5 +32,19 @@ export default function LobbyContent(props) {
             </div>
         )
 
+    } else if (props.status == 'finished') {
+        if (props.gameSelect == "ReactionTime") {
+            return (
+                <div className='h-full bg-white rounded-2xl p-2'>
+                    <ReactionTimeFinish></ReactionTimeFinish>
+                </div>
+            )
+        }
+        else {
+            return (
+                <h1>somehow a game started with no selected game</h1>
+                // give some error page here
+            )
+        }
     }
 }
