@@ -50,10 +50,7 @@ export default function ReactionTimeGame() {
                                 setFalseStartCount(falseStartCount + 1);
                                 return;
                             }
-                            setScore(Date.now() - greenTime);
-                            socket.emit("reactionTimeResult", {
-                                "score": Date.now() - greenTime,
-                            })
+                            
                             setShowButton(false);
                             setBaseTime(Date.now() - greenTime);
                             
