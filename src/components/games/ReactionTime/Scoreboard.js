@@ -1,9 +1,13 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 export default function Scoreboard(props) {
     
     var scores = {1 : '', 2: '', 3: '', 4: '', 5: '', 6 : '', 7 : '', 8 : '', 9 : '', 10 : ''}
 
+    useEffect(() => {
+        props.info.forEach((element, index) => { scores[index + 1] = element})
+        console.log(scores)
+    }, [])
     const scoreEntry = (rank, val) => {
         return(
             <div className="flex flex-row">
