@@ -1,18 +1,27 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 
 export default function Scoreboard(props) {
     
-    var scores = {1 : '', 2: '', 3: '', 4: '', 5: '', 6 : '', 7 : '', 8 : '', 9 : '', 10 : ''}
-
+    const empty = {1 : '', 2: '', 3: '', 4: '', 5: '', 6 : '', 7 : '', 8 : '', 9 : '', 10 : ''};
+    const [scores, setScores] = useState({1 : '', 2: '', 3: '', 4: '', 5: '', 6 : '', 7 : '', 8 : '', 9 : '', 10 : ''});
+    const [names, setNames] = useState({1 : '', 2: '', 3: '', 4: '', 5: '', 6 : '', 7 : '', 8 : '', 9 : '', 10 : ''});
     useEffect(() => {
-        props.info.forEach((element, index) => { scores[index + 1] = element})
-        console.log(scores)
-    }, [])
+        var temp = {1 : '', 2: '', 3: '', 4: '', 5: '', 6 : '', 7 : '', 8 : '', 9 : '', 10 : ''};
+        var temp2 = {1 : '', 2: '', 3: '', 4: '', 5: '', 6 : '', 7 : '', 8 : '', 9 : '', 10 : ''};
+        props.info.forEach((element, index) => { 
+            temp[index + 1] = element[1];
+            temp2[index + 1] = element[0];
+        })
+        setScores(temp);
+        setNames(temp2);
+        console.log(props.info)
+    }, [props.info])
     const scoreEntry = (rank, val) => {
         return(
-            <div className="flex flex-row">
-                <div> {rank} </div>
-                <div> {val} </div>
+            <div key={rank} className="flex flex-row">
+                <div className='w-1/12'> {rank} </div>
+                <div className='w-7/12'> {val} </div>
+                <div className='w-1/4'> {scores[rank]} </div>
             </div>
         )
     }
@@ -21,8 +30,8 @@ export default function Scoreboard(props) {
             <div className="h-1/6">score</div>
             
             <div className="flex flex-row">
-                <div className="w-1/2">{ Object.entries(scores).slice(0,5).map(([k,v]) => scoreEntry(k, v))}</div>
-                <div className="w-1/2">{ Object.entries(scores).slice(5,10).map(([k,v]) => scoreEntry(k, v))}</div>
+                <div className="w-1/2">{ Object.entries(names).slice(0,5).map(([k,v]) => scoreEntry(k, v))}</div>
+                <div className="w-1/2">{ Object.entries(names).slice(5,10).map(([k,v]) => scoreEntry(k, v))}</div>
             </div>
         </div>
     )

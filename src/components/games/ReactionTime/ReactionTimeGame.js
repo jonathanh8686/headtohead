@@ -12,7 +12,7 @@ export default function ReactionTimeGame() {
     const [falseStartCount, setFalseStartCount] = useState(0);
     const [renderState, setRenderState] = useState('game');
 
-    var scoreboardInfo = [];
+    const [scoreboardInfo, setScoreboardInfo] = useState([]);
     const falseStartPenalty = 50;
 
     function gameStart() {
@@ -37,7 +37,7 @@ export default function ReactionTimeGame() {
     })
 
     socket.on('reactionTimeEnd', (msg) => {
-        scoreboardInfo = msg['playerRankings']
+        setScoreboardInfo(msg['playerRankings']);
         setRenderState('scoreboard');
         
     })
